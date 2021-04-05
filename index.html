@@ -28,19 +28,32 @@
      
     <div class="w-full sm:w-1/2 md:w-2/3 lg:w-3/4 xl:w-5/6 mb-4 bg-gray-400">
       <div class="border-2 border-black">
-        <p>Date</p>
+        <h2 id=cityHeader>City Goes Here</h2>
         <p id='todayTemp' >Temp</p>
-        <p>Wind</p>
-        <p>Humidity</p>
+        <p id='todayWind'>Wind</p>
+        <p id='todayHumid'>Humidity</p>
+        <p id='todayUV'>UV Index</p>
       </div>
       <div class="border-2 border-black flex flex-wrap">
-        <div class="border-2 border-red-100">1 day forecast</div>
-        <div class="border-2 border-red-100">2 day forecast</div>
+        <div class="border-2 border-red-100">1 day forecast
+          <p id='day1Temp' >Temp</p>
+          <p id='day1Wind'>Wind</p>
+          <p id='day1Humid'>Humidity</p>
+          <p id='day1UV'>UV Index</p>
+
+        </div>
+        <div class="border-2 border-red-100">2 day forecast
+        <p id='day2Temp' >Temp</p>
+        <p id='day2Wind'>Wind</p>
+        <p id='day2Humid'>Humidity</p>
+        <p id='day2UV'>UV Index</p>
+        </div>
       </div>
 
   </div>
     
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="./script.js"></script>
 </html>
