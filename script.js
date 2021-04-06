@@ -10,6 +10,8 @@ var containerEl = document.getElementsByClassName('container');
 var cityList = [];
 var today = moment();
 
+//var cityButton = document.getElementsByClassName(city button)
+
 //Day 1 Forecast selectors
 var day1Temp = document.getElementById('day1Temp');
 var day1Wind = document.getElementById('day1Wind');
@@ -26,6 +28,7 @@ var day2UV = document.getElementById('day2UV');
   //getWeatToday will fetch the current conditions from the city in the form after clicking submit
 function getWeatToday(event) {
   event.preventDefault();
+  //***Add style for display none to 
   var inputCity = inputCityEl.value;
   cityList.push(inputCity);
   localStorage.setItem('cityList', JSON.stringify(cityList));
@@ -39,8 +42,9 @@ function getWeatToday(event) {
 } 
       for (var i=0; i<cityList.length; i++){
  
-       var relistCity = document.createElement('BUTTON');
-      var text = document.createTextNode(cityList[i]);
+       var relistCity = document.createElement('button');
+       relistCity.setAttribute('id', 'cityButton');
+       var text = document.createTextNode(cityList[i]);
       relistCity.appendChild(text);
       cityUl.appendChild(relistCity);
     }
@@ -71,6 +75,62 @@ function getWeatToday(event) {
 }
 //data has 5 day forecast in it - just call the correct [hour] from list when making the 5 day cards...
 
+//function to recall
+//inputCity = event.target.value
+//do not push to cityArray
+//do not clear storage
 
 //Event Listeners
-submitBtn.addEventListener("click", getWeatToday); 
+submitBtn.addEventListener('click', getWeatToday);
+
+if (cityList.length){
+var cityButtons = document.getElementsById('cityButton');
+
+//Recall forecast when a city from the list is selected
+cityButtons.addEventListener('click', function(event){
+  event.preventDefault();
+  console.log('click worked');
+  //***Add style for display none to 
+  var inputCity = event.target;
+    localStorage.setItem('cityList', JSON.stringify(cityList));
+
+  //recall list on screen with create elements?
+  var cityUl = document.getElementById('cityUl');
+     
+      
+  // while( cityUl.firstChild ){
+  // cityUl.removeChild( cityUl.firstChild );
+//} 
+      for (var i=0; i<cityList.length; i++){
+ 
+       var relistCity = document.createElement('button');
+       relistCity.setAttribute('id', 'cityButton');
+       var text = document.createTextNode(cityList[i]);
+      relistCity.appendChild(text);
+      cityUl.appendChild(relistCity);
+    }
+  var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' +inputCity+ '&units=imperial&appid=b1c903e5d1f873b35b51140c6c7621da';  
+ 
+  fetch(requestUrl)
+    .then(function (response) {
+      // console.log(response);
+      return response.json();
+      //console.log(response)
+    })
+    .then(function (data) {
+     console.log(data)
+        cityHeader.textContent=(inputCity+' on ' +(today.format("dddd, MMM Do, YYYY")));
+        todayTempEl.textContent=("Temp: " +data.list[0].main.temp +'°F');
+        todayWindEl.textContent=('Wind: ' + data.list[0].wind.speed + ' mph');
+        todayHumidEl.textContent=('Humidity: '+data.list[0].main.humidity+' %');
+        console.log(data.list[0].dt)
+
+        day1Temp.textContent=('Temp: ' +data.list[8].main.temp);
+        day1Wind.textContent=('Wind: ' + data.list[8].wind.speed + ' mph');
+        day1Humid.textContent=('Humidity: '+data.list[8].main.humidity+' %');
+       
+        day2Temp.textContent=('Temp: ' +data.list[16].main.temp);
+        day2Wind.textContent=('Wind: ' + data.list[16].wind.speed + ' mph');
+        day2Humid.textContent=('Humidity: '+data.list[16].main.humidity+' %');
+    })});
+}
