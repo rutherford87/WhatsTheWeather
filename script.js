@@ -80,6 +80,12 @@ function getWeatToday(event) {
     .then(function (data) {
      console.log(data)
 
+     var lat = data.city.coord.lat;
+     var long = data.city.coord.lon;
+     console.log(lat)
+     console.log(long)
+
+
         cityHeader.textContent=(inputCity+' on ' +(today.format("dddd, MMM Do, YYYY")));
         var displayIcon = document.createElement("img");
         displayIcon.src = "https://openweathermap.org/img/wn/"+data.list[0].weather[0].icon+"@2x.png";
@@ -95,7 +101,7 @@ function getWeatToday(event) {
         day1Temp.textContent=('Temp: ' +data.list[8].main.temp);
         day1Wind.textContent=('Wind: ' + data.list[8].wind.speed + ' mph');
         day1Humid.textContent=('Humidity: '+data.list[8].main.humidity+' %');
-       
+               
         //2 day forecast card
         var displayIcon2 = document.createElement("img");
         displayIcon2.src = "https://openweathermap.org/img/wn/"+data.list[16].weather[0].icon+"@2x.png";
@@ -124,18 +130,28 @@ function getWeatToday(event) {
                 day5Temp.textContent=('Temp: ' +data.list[39].main.temp);
                 day5Wind.textContent=('Wind: ' + data.list[39].wind.speed + ' mph');
                 day5Humid.textContent=('Humidity: '+data.list[39].main.humidity+' %');
-    });
+    var requestUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+long+'&exclude=minutely,hourly,alerts&appid=b1c903e5d1f873b35b51140c6c7621da';  
+ 
+         fetch(requestUrl)
+           .then(function (response) {
+             return response.json();
+           })
+           .then(function (data) {
+            console.log(data)})
+          //data logs correctly. UVI is found within the dataset, but getting it to call with data.current.uvi is unsuccessful  
+          });
+              
 }
-//data has 5 day forecast in it - just call the correct [hour] from list when making the 5 day cards...
 
 //Event Listeners
 submitBtn.addEventListener('click', getWeatToday);
 
+// //Recall forecast when a city from the list is selected, although it is unsuccessful currently
 // if (cityList.length){
 //   console.log(cityList);
 // var cityButtons = document.getElementsById('cityButton')};
 
-// //Recall forecast when a city from the list is selected
+
 // cityButtons.addEventListener('click', function(event){
 //   event.preventDefault();
 //   console.log('click worked');

@@ -15,8 +15,8 @@ The repo can be found here:
 
 The website can be viewed here: [What's the Weather?](https://rutherford87.github.io/WhatsTheWeather/)
 
-Here is a screenshot of  quiz:
-![WOW!](./ExampleLiveQuiz.PNG)
+Here is a screenshot of the forecast for Austin:
+![Austin Tx 5 Day Forecast](./Example.PNG)
 
 How to use this tool:
 Search by city in the search box and click submit.
@@ -26,4 +26,4 @@ Good luck, have fun!
 
 Expansion work:
 * Create a for loop for Day[i], where i goes from day 1 through 5
-* Continue to explore styling from Tailwind
+* Continue to explore styling from Bulma
